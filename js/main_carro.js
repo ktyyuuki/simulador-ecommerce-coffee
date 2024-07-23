@@ -1,28 +1,3 @@
-function agruparItemsCarro(){
-    const carrito = cargarCarroLS();
-    let carroAgrupado = carrito.reduce((acc, producto) => {
-        if(producto.tamano){
-            let productoVariante = acc.find(item => item.tamano.medida == producto.tamano.medida);
-            if(productoVariante){
-                productoVariante.cantidad += producto.cantidad;
-            }
-            else {
-                acc.push({...producto})
-            }
-            return acc;
-        } else {
-            let productoCarro = acc.find(item => item.id == producto.id);
-            if (productoCarro){
-                productoCarro.cantidad += producto.cantidad;
-            } else {
-                acc.push({...producto})
-            }
-            return acc;
-        }
-    }, []);
-    return carroAgrupado;
-}
-
 function renderCarro(){
     const carrito = agruparItemsCarro();
     let carroHTML;
@@ -46,14 +21,14 @@ function renderCarro(){
             </td>
             <td width="110" class="align-content-center">
                 <label for="cantidad${producto.tamano ? producto.tamano.nombre : producto.id}" class="form-label">Cantidad</label>
-                <input type="number" name="cantidad" id="cantidad${producto.tamano ? producto.tamano.nombre : producto.id}" class="form-control" value="${producto.cantidad}">
+                <input type="number" name="cantidad" id="cantidad${producto.tamano ? producto.tamano.nombre : producto.id}" class="form-control" value="${producto.cantidad}" disabled>
             </td>
             <td width="120" class="align-content-center text-end">
                 <p class="form-label mb-2 lh-1">Total</p>
                 <p class="fw-bold mb-1 mt-3 text-verde">$${producto.precioFinal * producto.cantidad}</p>
             </td>
             <td width="130" class="align-content-center text-end">
-                <a href="" class="btn btn-link text-secondary text-decoration-none mt-4"><i class="bi bi-trash3"></i> Quitar</a>
+                <button type="button" onclick="eliminarDelCarro(${producto.id}, ${producto.tamano ? producto.tamano.medida : ''})" class="btn btn-link text-secondary text-decoration-none mt-4"><i class="bi bi-trash3"></i> Quitar</button>
             </td>
         </tr>`;
         }
@@ -69,3 +44,4 @@ function renderCarro(){
 
 renderCarro();
 totalItemsCarro();
+resumenPedido();
