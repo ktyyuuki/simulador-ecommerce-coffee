@@ -1,5 +1,30 @@
-function renderCarro(){
+function agruparItemsCarro(){
     const carrito = cargarCarroLS();
+    let carroAgrupado = carrito.reduce((acc, producto) => {
+        if(producto.tamano){
+            let productoVariante = acc.find(item => item.tamano.medida == producto.tamano.medida);
+            if(productoVariante){
+                productoVariante.cantidad += producto.cantidad;
+            }
+            else {
+                acc.push({...producto})
+            }
+            return acc;
+        } else {
+            let productoCarro = acc.find(item => item.id == producto.id);
+            if (productoCarro){
+                productoCarro.cantidad += producto.cantidad;
+            } else {
+                acc.push({...producto})
+            }
+            return acc;
+        }
+    }, []);
+    return carroAgrupado;
+}
+
+function renderCarro(){
+    const carrito = agruparItemsCarro();
     let carroHTML;
     if(cantidadItemsCarro() > 0){
         carroHTML = `<table class="table table-carro">

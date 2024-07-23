@@ -63,7 +63,7 @@ function cantidadItemsCarro(){
         const cantidad = JSON.parse(item.cantidad);
         resultado = resultado + cantidad;
     });
-    return resultado;
+    return resultado;    
 }
 function totalItemsCarro(){
     let total = cantidadItemsCarro();
@@ -72,15 +72,13 @@ function totalItemsCarro(){
 
 function agregarAlCarro(id){
     const producto = productos.find(item => item.id == id);
-    producto.cantidad = document.getElementById("cantidad").value;
+    producto.cantidad = JSON.parse(document.getElementById("cantidad").value);
     if(producto.variantes){
         let radiosVariantes = document.querySelectorAll('input[name="tamano"]');
-        // producto.precioFinal = varianteSeleccionada().precio;
         producto.tamano = varianteSeleccionada();
 
         radiosVariantes.forEach(radio => {
             radio.addEventListener("change", () => {
-                // producto.precioFinal = varianteSeleccionada().precio;
                 producto.tamano = varianteSeleccionada();
             });
         });
