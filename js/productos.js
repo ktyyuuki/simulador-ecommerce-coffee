@@ -2,7 +2,6 @@ let prod1 = {
     nombre: "Capuccino",
     img: "capuccino.png",
     categoria: "Cafés calientes",
-    // precio: 1500,
     breve: "El equilibrio entre espresso intenso, leche vaporizada y espuma suave.",
     descripcion: "Una danza equilibrada entre espresso intenso, leche vaporizada y espuma suave. Su aroma a café recién molido te envuelve mientras la taza se posa en la mesa. Cada sorbo es un encuentro con la Italia de las plazas soleadas.",
     variantes: [
@@ -33,7 +32,6 @@ let prod4 = {
     nombre: "Chocolate Caliente",
     img: "chocolate-caliente.png",
     categoria: "Cafés calientes",
-    // precio: 2000,
     breve: "Delicioso chocolate amargo con leche y crema chantilly.",
     descripcion: "Una base de chocolate oscuro, profundo y sedoso con leche. La crema batida se posa en la superficie, como una nube dulce que se derrite lentamente. Cada sorbo es un viaje al corazón del invierno.",
     variantes: [

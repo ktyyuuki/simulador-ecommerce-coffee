@@ -173,7 +173,7 @@ h1,h2,h3,h4,h5,h6{
    margin: 0; 
 }
 .table-carro figure img{
-   min-width: 150px;
+   min-width: 50px;
 }
 .table-carro .nombre{
     font-weight: 700;
@@ -195,6 +195,18 @@ h1,h2,h3,h4,h5,h6{
 .table-carro .form-label{
     color: #666;
     
+}
+.table-carro tr td:nth-child(2){
+    min-width: 160px;
+}
+.table-carro tr td:nth-child(3){
+    min-width: 100px;
+}
+.table-carro tr td:nth-child(4){
+    min-width: 100px;
+}
+.table-carro tr td:nth-child(5){
+    min-width: 120px;
 }
 .resumen-pedido .table tr th,
 .resumen-pedido .table tr td{

@@ -3,7 +3,8 @@ function renderCarro(){
     let carroHTML;
     if(cantidadItemsCarro() > 0){
         carroHTML = `<table class="table table-carro">
-        <tbody>`;
+        <tbody>
+        <tr><td colspan="5" class="text-end"><button type="button" class="btn btn-sm btn-secondary py-2" onclick="vaciarCarrito()"><i class="bi bi-trash3 me-1"></i> Vaciar Carro</button></td></tr>`;
 
         for (const producto of carrito) {
             carroHTML += `<tr>
