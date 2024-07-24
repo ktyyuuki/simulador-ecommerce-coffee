@@ -36,6 +36,5 @@ function renderDetalle(){
 }
 
 renderDetalle();
-
 mostrarPrecio();
 totalItemsCarro();

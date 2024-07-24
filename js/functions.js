@@ -45,14 +45,12 @@ function verDetalleProducto(){
 function varianteSeleccionada(){
     let seleccionado = document.querySelector("input[name='tamano']:checked");
     return seleccionado ? producto.variantes.find(item => item.nombre == seleccionado.value) : null; 
-    //Devuelve el objeto que coincida el nombre con el value
 }
 
 function mostrarPrecio(){
     let txtPrecio = document.getElementById("precio");
     if(producto.variantes){
         let radiosVariantes = document.querySelectorAll('input[name="tamano"]');
-        
         radiosVariantes.forEach(radio => {
             radio.addEventListener("change", () => {
                 let seleccionado = varianteSeleccionada();
@@ -72,13 +70,13 @@ function agregarAlCarro(id){
     producto.cantidad = parseInt(document.getElementById("cantidad").value);
     if(producto.variantes){
         let radiosVariantes = document.querySelectorAll('input[name="tamano"]');
+        producto.tamano = varianteSeleccionada();
         radiosVariantes.forEach(radio => {
             radio.addEventListener("change", () => {
                 producto.tamano = varianteSeleccionada();
             });
         });
     }
-  
     const carrito = cargarCarroLS();
     carrito.push(producto);
     guardarCarroLS(carrito);
@@ -95,7 +93,6 @@ function eliminarDelCarro(id, tamano = null){
             return item.id != id;
         }
     });
-    
     guardarCarroLS(carritoActualizado);
     renderCarro();
     totalItemsCarro();
@@ -121,7 +118,6 @@ function totalItemsCarro(){
     let total = cantidadItemsCarro();
     document.getElementById("totalItems").innerHTML = total;
 }
-
 
 function agruparItemsCarro(){
     const carrito = cargarCarroLS();
@@ -149,6 +145,7 @@ function vaciarCarrito(){
     resumenPedido();
 }
 
+// ===== RESUMEN PEDIDO ===== //
 function calcularSubtotal(){
     const carrito = agruparItemsCarro();
     let total = 0;

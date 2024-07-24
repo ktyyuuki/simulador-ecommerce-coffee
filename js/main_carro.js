@@ -21,8 +21,8 @@ function renderCarro(){
                 carroHTML += `<p class="precio">$${producto.precioFinal}</p>
             </td>
             <td width="110" class="align-content-center">
-                <label for="cantidad${producto.tamano ? producto.tamano.nombre : producto.id}" class="form-label">Cantidad</label>
-                <input type="number" name="cantidad" id="cantidad${producto.tamano ? producto.tamano.nombre : producto.id}" class="form-control" value="${producto.cantidad}" disabled>
+                <label for="cantidad${producto.id}${producto.tamano ? producto.tamano.nombre : ''}" class="form-label">Cantidad</label>
+                <input type="number" name="cantidad" id="cantidad${producto.id}${producto.tamano ? producto.tamano.nombre : ''}" class="form-control" value="${producto.cantidad}" disabled>
             </td>
             <td width="120" class="align-content-center text-end">
                 <p class="form-label mb-2 lh-1">Total</p>
