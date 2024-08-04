@@ -30,6 +30,16 @@ class Producto{
     }
 }
 
+// Cargar productos de JSON
+async function consumirJSON() {
+    const response = await fetch("../json/productos.json");
+    const data = await response.json(); // Array de productos
+    data.forEach(item => {
+        new Producto(item);
+    });
+    return productos;
+}
+
 // ===== INDEX ===== //
 function guardarProductoID(id){
     localStorage.setItem("productoID", JSON.stringify(id));
@@ -42,18 +52,18 @@ function verDetalleProducto(){
 }
 
 // ===== VISTA DETALLE PRODUCTO ===== //
-function varianteSeleccionada(){
+function varianteSeleccionada(producto){
     let seleccionado = document.querySelector("input[name='tamano']:checked");
     return seleccionado ? producto.variantes.find(item => item.nombre == seleccionado.value) : null; 
 }
 
-function mostrarPrecio(){
+function mostrarPrecio(producto){
     let txtPrecio = document.getElementById("precio");
     if(producto.variantes){
         let radiosVariantes = document.querySelectorAll('input[name="tamano"]');
         radiosVariantes.forEach(radio => {
             radio.addEventListener("change", () => {
-                let seleccionado = varianteSeleccionada();
+                let seleccionado = varianteSeleccionada(producto);
                 if(seleccionado){
                     producto.precioFinal = seleccionado.precio;
                     txtPrecio.innerHTML = `$${producto.precioFinal}`;
@@ -70,10 +80,10 @@ function agregarAlCarro(id){
     producto.cantidad = parseInt(document.getElementById("cantidad").value);
     if(producto.variantes){
         let radiosVariantes = document.querySelectorAll('input[name="tamano"]');
-        producto.tamano = varianteSeleccionada();
+        producto.tamano = varianteSeleccionada(producto);
         radiosVariantes.forEach(radio => {
             radio.addEventListener("change", () => {
-                producto.tamano = varianteSeleccionada();
+                producto.tamano = varianteSeleccionada(producto);
             });
         });
     }

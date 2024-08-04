@@ -1,7 +1,8 @@
 // DETALLE DE PRODUCTO  
-const producto = verDetalleProducto();
+async function renderDetalle(){
+    await consumirJSON();
+    const producto = verDetalleProducto();
 
-function renderDetalle(){
     let infoHTML = `<h1 class="detalle-titulo">${producto.nombre}</h1>
     <p class="detalle-precio" id="precio"></p>
     <p class="detalle-descripcion">${producto.descripcion}</p>`
@@ -33,8 +34,9 @@ function renderDetalle(){
 
     document.getElementById("infoProd").innerHTML = infoHTML;
     document.getElementById("imgProd").innerHTML = imgHTML;
+
+    mostrarPrecio(producto);
 }
 
 renderDetalle();
-mostrarPrecio();
 totalItemsCarro();
