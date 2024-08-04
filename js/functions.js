@@ -32,12 +32,24 @@ class Producto{
 
 // Cargar productos de JSON
 async function consumirJSON() {
-    const response = await fetch("../json/productos.json");
-    const data = await response.json(); // Array de productos
-    data.forEach(item => {
-        new Producto(item);
-    });
-    return productos;
+    if (productos.length === 0){
+        const response = await fetch("../json/productos.json");
+        const data = await response.json(); // Array de productos
+        data.forEach(item => {
+            new Producto(item);
+        });
+        return productos;
+    }
+}
+
+// Spinner para cargar de contenido
+const spinner = (id) => {
+    let spinnerHTML = `<div class="text-center my-5">
+        <div class="spinner-grow" role="status" style="width: 3rem; height: 3rem; color: var(--crema)">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>`;
+    document.getElementById(id).innerHTML = spinnerHTML;
 }
 
 // ===== INDEX ===== //

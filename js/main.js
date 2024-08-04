@@ -1,28 +1,29 @@
-async function filtroCategorias(cat){
+async function filtroCategorias(cat = null){
     await consumirJSON();
-    let links = document.querySelectorAll('.nav-link');
-    // console.log(links);
-    links.forEach(link => {
-        // console.log(link.textContent);
-        if(link.textContent == cat){
-            link.classList.add("active");
-        }
-    });
-
-    if(cat === "Todos" || null){
-        return productos
+    
+    spinner("productos");
+    
+    let productosFiltrados;
+    if(cat == null){
+        productosFiltrados = productos;
+    } else{
+        productosFiltrados = productos.filter(producto => producto.categoria == cat);
     }
-    const productosFiltrados = productos.filter(producto => producto.categoria == cat);
-    // console.log(productosFiltrados);
-    return productosFiltrados;
+
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(renderProductos(productosFiltrados));
+            // resolve(productosFiltrados);
+        },1500);
+    })
 }
 
 // MOSTRAR PRODUCTOS EN INICIO
 async function renderProductos(listadoProductos){
-    // await consumirJSON();
-    // const listadoProductos = showProductos || productos;
-    let productosHTML = "";
 
+    document.getElementById("productos").innerHTML = "";
+
+    let productosHTML = "";
     for (const producto of listadoProductos) {
         productosHTML += `<div class="col-6 col-lg-3">
             <div class="card">
@@ -36,15 +37,11 @@ async function renderProductos(listadoProductos){
                     <a href="./detalle.html" onclick="guardarProductoID(${producto.id});" class="btn btn-color stretched-link w-100">Ver detalle</a>
                 </div>
             </div>
-        </div>`
+        </div>`;
+        document.getElementById("productos").innerHTML = productosHTML;
     }
-    document.getElementById("productos").innerHTML = productosHTML;
 }
 
-async function filtrarYRenderizarProductos(categoria){
-    const productosFiltrados = await filtroCategorias(categoria);
-    renderProductos(productosFiltrados);
-}
+filtroCategorias();
 // renderProductos(productos);
-filtrarYRenderizarProductos("Todos");
 totalItemsCarro();
