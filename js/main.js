@@ -43,5 +43,4 @@ async function renderProductos(listadoProductos){
 }
 
 filtroCategorias();
-// renderProductos(productos);
 totalItemsCarro();
