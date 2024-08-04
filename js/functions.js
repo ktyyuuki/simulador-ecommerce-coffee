@@ -52,6 +52,19 @@ const spinner = (id) => {
     document.getElementById(id).innerHTML = spinnerHTML;
 }
 
+function linkSeleccionado(){
+    let links = document.querySelectorAll(".nav-link");
+    links.forEach(link => {
+        link.addEventListener("click",() => {
+            let seleccionado = document.querySelector(".nav-link.active");
+            if(seleccionado != link){
+                seleccionado.classList.remove("active");
+            }
+            link.classList.add("active");
+        })
+    });
+}
+
 // ===== INDEX ===== //
 function guardarProductoID(id){
     localStorage.setItem("productoID", JSON.stringify(id));

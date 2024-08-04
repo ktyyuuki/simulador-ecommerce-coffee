@@ -14,7 +14,7 @@ async function filtroCategorias(cat = null){
         setTimeout(() => {
             resolve(renderProductos(productosFiltrados));
             // resolve(productosFiltrados);
-        },1500);
+        },1000);
     })
 }
 
@@ -42,5 +42,6 @@ async function renderProductos(listadoProductos){
     }
 }
 
+linkSeleccionado();
 filtroCategorias();
 totalItemsCarro();
