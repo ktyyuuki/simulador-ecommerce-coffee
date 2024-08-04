@@ -1,8 +1,6 @@
 async function filtroCategorias(cat = null){
     await consumirJSON();
-    
     spinner("productos");
-    
     let productosFiltrados;
     if(cat == null){
         productosFiltrados = productos;
@@ -42,6 +40,5 @@ async function renderProductos(listadoProductos){
     }
 }
 
-linkSeleccionado();
-filtroCategorias();
+recuperarCategoria();
 totalItemsCarro();

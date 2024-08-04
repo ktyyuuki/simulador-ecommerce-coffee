@@ -52,17 +52,44 @@ const spinner = (id) => {
     document.getElementById(id).innerHTML = spinnerHTML;
 }
 
-function linkSeleccionado(){
+// Clase active según filtro categoria
+function linkSeleccionado(categoria = null){
     let links = document.querySelectorAll(".nav-link");
+    let categoriaSeleccionada = categoria || "Todos";
+
     links.forEach(link => {
+        if(link.textContent == categoriaSeleccionada){
+            link.classList.add("active");
+        }
+        
         link.addEventListener("click",() => {
             let seleccionado = document.querySelector(".nav-link.active");
-            if(seleccionado != link){
+            if(seleccionado && seleccionado !== link){
                 seleccionado.classList.remove("active");
             }
             link.classList.add("active");
         })
     });
+}
+
+// Guardar categoria para filtrar
+function setCategoria(categoria){
+    localStorage.setItem("categoriaSeleccionada", categoria);
+}
+
+// Cargar categoria para filtrar desde otra sección en el inicio
+function recuperarCategoria(){
+    document.addEventListener('DOMContentLoaded', () => {
+        const categoria = localStorage.getItem("categoriaSeleccionada");
+        if (categoria){
+            filtroCategorias(categoria);
+            linkSeleccionado(categoria);
+            localStorage.removeItem("categoriaSeleccionada");
+        } else {
+            filtroCategorias();
+            linkSeleccionado();
+        }
+    })
 }
 
 // ===== INDEX ===== //
