@@ -1,17 +1,22 @@
+// FILTRAR PRODUCTOS
 async function filtroCategorias(cat = null){
     await consumirJSON();
     spinner("productos");
     let productosFiltrados;
-    if(cat == null){
+    if(cat == null || cat.toUpperCase() == "TODOS"){
         productosFiltrados = productos;
     } else{
         productosFiltrados = productos.filter(producto => producto.categoria == cat);
     }
-
+    
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(renderProductos(productosFiltrados));
-            // resolve(productosFiltrados);
+            if(productosFiltrados == 0){
+                document.getElementById("productos").innerHTML = `<h5>No hay productos para mostrar en esta categoría</h5>`;
+            } else {
+
+                resolve(renderProductos(productosFiltrados));
+            }
         },1000);
     })
 }

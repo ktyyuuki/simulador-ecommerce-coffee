@@ -44,7 +44,7 @@ async function consumirJSON() {
 
 // Spinner para cargar de contenido
 const spinner = (id) => {
-    let spinnerHTML = `<div class="text-center my-5">
+    let spinnerHTML = `<div class="text-center my-3">
         <div class="spinner-grow" role="status" style="width: 3rem; height: 3rem; color: var(--crema)">
             <span class="visually-hidden">Loading...</span>
         </div>
@@ -61,7 +61,7 @@ function linkSeleccionado(categoria = null){
         if(link.textContent == categoriaSeleccionada){
             link.classList.add("active");
         }
-        
+
         link.addEventListener("click",() => {
             let seleccionado = document.querySelector(".nav-link.active");
             if(seleccionado && seleccionado !== link){
@@ -147,18 +147,31 @@ function agregarAlCarro(id){
 
 function eliminarDelCarro(id, tamano = null){
     const carroAgrupado = agruparItemsCarro();
-    console.log(carroAgrupado);
+    let prodId = `prod${id}`;
+
     carritoActualizado = carroAgrupado.filter(item => {
         if (tamano){
+            prodId = `prod${id}${tamano}`;
+            console.log(prodId);
             return !(item.id == id && item.tamano && item.tamano.medida == tamano);
         } else {
             return item.id != id;
         }
     });
-    guardarCarroLS(carritoActualizado);
-    renderCarro();
-    totalItemsCarro();
-    resumenPedido();
+
+    let productoFila = document.getElementById(prodId);
+    if(productoFila){
+        productoFila.innerHTML = `<td colspan="5" id="spinner"></td>`;
+        spinner("spinner");
+    }
+
+    setTimeout(() => {
+        guardarCarroLS(carritoActualizado);
+        estadoBtn();
+        renderCarro();
+        totalItemsCarro();
+        resumenPedido();
+    }, 200);
 }
 
 function cargarCarroLS(){
@@ -201,10 +214,14 @@ function agruparItemsCarro(){
 }
 
 function vaciarCarrito(){
-    localStorage.removeItem("carro");
-    renderCarro();
-    totalItemsCarro();
-    resumenPedido();
+    spinner("productosCarro");
+    setTimeout(() => {
+        localStorage.removeItem("carro");
+        estadoBtn();
+        renderCarro();
+        totalItemsCarro();
+        resumenPedido();
+    }, 500);
 }
 
 // ===== RESUMEN PEDIDO ===== //

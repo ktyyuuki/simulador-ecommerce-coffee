@@ -40,9 +40,8 @@ async function renderDetalle(){
     document.getElementById("btnCart").addEventListener("click", toastAdded);
 }
 
-
+// Toastify
 function toastAdded(){
-    // Toastify
     Toastify({
         text: "Producto añadido al Carro ",
         avatar: "../img/check-icon.png",

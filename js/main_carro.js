@@ -1,5 +1,41 @@
+function estadoBtn() {
+    const carrito = agruparItemsCarro();
+    let btnFinalizar = document.getElementById("btnFinalizar");
+
+    if (carrito.length > 0){
+        btnFinalizar.classList.remove("disabled");
+        
+        btnFinalizar.addEventListener("click", () => {
+            Swal.fire({
+                title: '<h3>Pedido Realizado</h3>',
+                html: `<p class="text-secondary">Tu pedido ha sido realizado con éxito. <br><b>¡Gracias por tu compra!</b></p>`,
+                icon: 'success',
+                confirmButtonText: `<i class="bi bi-check2-circle me-1"></i> Finalizar Compra`,
+                confirmButtonColor: '#198754',
+                showCloseButton: true,
+                buttonsStyling: false,
+                customClass: {
+                    actions: 'w-100 px-4',
+                    confirmButton: 'btn btn-color py-3 w-100',
+                }
+            }).then((result) => {
+                if(result.isConfirmed){
+                    localStorage.removeItem("carro");
+                    estadoBtn();
+                    renderCarro();
+                    totalItemsCarro();
+                    resumenPedido();
+                }
+            })
+        })
+    } else {
+        btnFinalizar.classList.add("disabled");
+    }
+}
+
 function renderCarro(){
     const carrito = agruparItemsCarro();
+
     let carroHTML;
     if(cantidadItemsCarro() > 0){
         carroHTML = `<table class="table table-carro">
@@ -7,7 +43,7 @@ function renderCarro(){
         <tr><td colspan="5" class="text-end"><button type="button" class="btn btn-sm btn-secondary py-2" onclick="vaciarCarrito()"><i class="bi bi-trash3 me-1"></i> Vaciar Carro</button></td></tr>`;
 
         for (const producto of carrito) {
-            carroHTML += `<tr>
+            carroHTML += `<tr id="prod${producto.id}${producto.tamano ? producto.tamano.medida : ''}">
             <td width="100" class="align-content-center">
                 <figure>
                     <img src="./img/${producto.img}" class="img-fluid" alt="">
@@ -40,9 +76,14 @@ function renderCarro(){
         carroHTML = `<p class="fs-5 fw-bold mb-0">No haz agregado artículos a tu pedido</p>`;
     }
 
-    document.getElementById("productosCarro").innerHTML = carroHTML;
+    return new Promise((resolve)=>{
+        setTimeout(() => {
+            resolve(document.getElementById("productosCarro").innerHTML = carroHTML);
+        }, 500)
+    })
 }
 
+estadoBtn();
 renderCarro();
 totalItemsCarro();
 resumenPedido();
