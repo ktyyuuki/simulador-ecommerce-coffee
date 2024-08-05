@@ -44,9 +44,9 @@ async function renderDetalle(){
 function toastAdded(){
     Toastify({
         text: "Producto añadido al Carro ",
-        avatar: "../img/check-icon.png",
+        avatar: "./img/check-icon.png",
         duration: 2500,
-        destination: "../carro.html",
+        destination: "./carro.html",
         close: true,
         gravity: "bottom",
         position: "right",
