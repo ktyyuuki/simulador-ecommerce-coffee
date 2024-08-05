@@ -33,7 +33,7 @@ class Producto{
 // Cargar productos de JSON
 async function consumirJSON() {
     if (productos.length === 0){
-        const response = await fetch("../json/productos.json");
+        const response = await fetch("./json/productos.json");
         const data = await response.json(); // Array de productos
         data.forEach(item => {
             new Producto(item);
